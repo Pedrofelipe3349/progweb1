@@ -1,0 +1,40 @@
+#header{
+        
+        width: 100%;
+
+}
+
+#header #logo img {
+
+width: 120px;
+height: auto;
+}
+
+#header #car img {
+    width: 100px;
+    height: auto;
+}
+
+#header #user img {
+    width: 100px;
+    height: auto;
+}
+
+#slider{
+    height: 100px ;
+    width: 100%;
+    background-color:red;
+    
+}
+#content{
+    height: 100px ;
+    width: 100%;
+    background-color: purple;
+    
+}
+#footer{
+    height: 100px ;
+    width: 100%;
+    background-color: rgb(204, 0, 255);
+    
+}
