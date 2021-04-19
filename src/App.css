@@ -2,6 +2,44 @@
   text-align: center;
 }
 
+.header{
+  background-color: #2a2c31;
+  color: #ffffff;
+  padding: 10px 0px 10px 0px;
+}
+
+.header .row{
+  align-items: center;
+}
+
+
+.header #logo{
+  width: 80px;
+  height: auto;
+  
+}
+.header .shopping-cart{
+  color: #ffffff;
+  width: 30px;
+  height: auto;
+
+}
+.header .shopping-count{
+  color: #ffffff;
+  width: 30px;
+  height: auto;
+
+}
+.header .userlogin{
+  color: #ffffff;
+  width: 45px;
+  height: auto;
+}
+.flex-column .nav-link{
+  margin-top: 4px;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
