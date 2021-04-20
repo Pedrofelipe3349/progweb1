@@ -1,0 +1,47 @@
+/* CORES */
+.bg-light-gray{
+    background-color: #f0f0f0;
+    color: #2A2C31;
+}
+
+.bg-dark-gray{
+    background-color: #2A2C31;
+    color: #ffffff;
+}
+
+.dark-gray{
+    color: #2A2C31;
+}
+
+
+/* ESPAÇAMENTOS 
+    m = margin
+    p = padding
+    t = top
+    b = botton
+    l = left
+    r = right
+*/
+.mtb-10{
+    margin: 10px 0;
+}
+.mtb-n10{
+    margin: -10px 0;
+}
+
+
+.mrl-10{
+    margin: 0 10px;
+}
+.mrl-n10{
+    margin: 0 -10px;
+}
+
+/* ALINHAMENTOS */
+.text-align-left{
+    text-align: left;
+}
+
+.text-align-right{
+    text-align: right;
+}

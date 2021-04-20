@@ -1,7 +1,18 @@
+import Container from 'react-bootstrap/Container' ;
+import PessoaFormulario from './views/pessoas/PessoaFormulario';
+import Pessoalista  from './views/pessoas/Pessoalista';
+import Notfound from './Notfound';
+import Home  from './Home';
+import Row from 'react-bootstrap/Row' ;
+import Col from 'react-bootstrap/Col' ;
+import Nav from 'react-bootstrap/Nav' ;
+import { NavLink } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faShoppingCart,faUserCircle} from '@fortawesome/free-solid-svg-icons'
 
 import logo from './logo.svg';
 import './App.css';
-import './Colors.css';
+import './Styles.css';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -10,25 +21,8 @@ import {
   Link
 } from "react-router-dom";
 
-import Container from 'react-bootstrap/Container' ;
-import Row from 'react-bootstrap/Row' ;
-import Col from 'react-bootstrap/Col' ;
-import Nav from 'react-bootstrap/Nav' ;
-import { NavLink } from 'react-bootstrap';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faShoppingCart,faUserCircle} from '@fortawesome/free-solid-svg-icons'
-
-import Tela1 from './Tela1';
-import Tela2 from './Tela2';
-import Notfound from './Notfound';
-
-
-
-
-
 function App() {
-  return (
+  return(
     <div className="App">
       
       <Router>
@@ -76,13 +70,14 @@ function App() {
           <Col xs={3} >
           <Nav className="flex-column">
               <Link to="/" className="bg-light-grey">Home</Link>
-              <Link to="/tela" className="bg-light-grey">Tela2</Link>
+              <Link to="/pessoa/lista" className="bg-light-grey">Pessoa</Link>
           </Nav>
           </Col>
           <Col xs={9}>
             <Switch>
-              <Route exact path ="/"><Tela1/></Route>
-              <Route  path ="/tela"><Tela2 nome="props enviado do APP" /></Route>
+              <Route exact path ="/"><Home /></Route>
+              <Route  path ="/pessoa/lista"><Pessoalista/></Route>
+              <Route  path ="/pessoa/formulario"><PessoaFormulario/></Route>
               <Route  path ="*"><Notfound/></Route>
             </Switch>
           </Col>

@@ -1,0 +1,28 @@
+{
+    "pessoas":[
+        {
+            "id": 1,
+            "nome": "Edruvaldo",
+            "cpf": "123654",
+            "img":""
+
+
+        },
+
+        {
+            "id": 1,
+            "nome": "Rubinst",
+            "cpf": "2610",
+            "img":""
+
+        }
+
+
+
+
+
+    ]
+
+
+
+}
