@@ -1,18 +1,18 @@
+import React, { useState, useEffect } from 'react';
+import PessoaService from '../../service/PessoaService'
+import Button from 'react-bootstrap/Button'
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
   } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
-import PessoaService from '../../service/PessoaService'
-import Button from 'react-bootstrap/Button'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPencilAlt,faTrashAlt,faSearch} from '@fortawesome/free-solid-svg-icons'
 import '../../Styles.css';
 import Modal from 'react-bootstrap/Modal'
-import axios from 'axios';
 
 
 
@@ -27,17 +27,8 @@ import axios from 'axios';
     const handleClose = () => setShow(false); 
     const handleShow = (pessoa) => {setPessoaSelecionada(pessoa); setShow(true) };
     const handleSearch = (event) => setSearch(event.target.value);
-    const handleExcluir = () => { 
-      PessoaService.excluir(pessoaSelecionada.id)
-      .then (response => {
-          const listaAtualizada = listaPessoas.filter(filterExcluir);
-          setListaPessoas(listaAtualizada);
-
-          console.log("RESPONSE =",response);
-      })
-      .catch(error => console.log ("Error=", error))
-
-     setShow(false);
+    const handleExcluir = () => { console.log ("DELETAR =" , pessoaSelecionada); setShow(false)
+      
      
     };
       const filterExcluir =(pessoa) => {
@@ -90,9 +81,9 @@ import axios from 'axios';
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
+              <th scope="col">Ordem</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Cpf</th>
               <th scope="col">Operações</th>
             </tr>
           </thead>
