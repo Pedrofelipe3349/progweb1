@@ -1,52 +1,16 @@
 {
-    "pessoas":[
-        {
-            "id": 1,
-            "nome": "Edruvaldo",
-            "cpf": "123654",
-            "img":""
-
-
-        },
-
-        {
-            "id": 2,
-            "nome": "Rubinst",
-            "cpf": "2610",
-            "img":""
-
-        },
-        {
-            "id": 3,
-            "nome": "Edruvaldo",
-            "cpf": "123654",
-            "img":""
-
-
-        },
-        {
-            "id": 5,
-            "nome": "Edruvaldo",
-            "cpf": "123654",
-            "img":""
-
-
-        },
-        {
-            "id": 14,
-            "nome": "Edruvaldo",
-            "cpf": "123654",
-            "img":""
-
-
-        }
-
-
-
-
-
-    ]
-
-
-
+  "pessoas": [
+    {
+      "id": 1,
+      "nome": "Edruvaldo",
+      "cpf": "123654",
+      "img": ""
+    },
+    {
+      "img": "",
+      "nome": "PEDRO FELIPE DE SOUZA FERNANDES",
+      "cpf": "1564465",
+      "id": 3
+    }
+  ]
 }

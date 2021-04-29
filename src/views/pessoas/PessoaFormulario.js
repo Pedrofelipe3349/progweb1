@@ -1,47 +1,83 @@
-import React from 'react';
-import { Formik } from 'formik'
+import React, { useState, useEffect } from 'react';
+
+import { Formik , Form, Field, ErrorMessage } from 'formik'
+import PessoaService from '../../service/PessoaService'
+
+import { 
+    useHistory,
+    useParams
+  } from "react-router-dom";
+
 
 
 function PessoaFormulario(){
+
+    let history = useHistory();
+    let {id} = useParams(); 
+    useEffect(() =>{
+        buscarPessoa();
+      },[]);
+    const [pessoa, setPessoa] = useState({});
+
+
+    const buscarPessoa = () => {
+        if(id != undefined){
+            PessoaService.buscarPeloId(id)
+            .then(response => {
+                setPessoa(response.data);
+            })
+            .catch( error => console.log( "ERROR => ". error))
+        }    
+    }  
+    const handleSubmit = (values, {setSubmitting}) => {
+
+        PessoaService.salvar(values)
+        .then( response => {
+            setSubmitting(false);
+            history.push("/pessoa/lista");
+        })
+        .catch(error => console.log("ERROR = ", error) )
+
+    }
+
     return(
-    <div className = "">
+    <div>
         <h1>Cadastro de pessoa</h1> 
+
+
         <Formik
-               initialValues={{ img: '', nome: '', cpf: '' }}
-                onSubmit= {(values,{setSubmitting} ) => {
-                    setTimeout(() => {
-                        console.log(values);
-                        setSubmitting(false);      
-                    }, 3000);
-                } }   
+               initialValues={id==undefined? {img:'', nome: '', cpf:''}: pessoa}
+                onSubmit= {(values, {setSubmitting} ) => handleSubmit(values, {setSubmitting} ) }
         >
 
-       {({ handleSubmit,isSubmitting})=> (
+        {  ({ values, handleSubmit, isSubmitting }) => (
 
-       
-            <form onSubmit={handleSubmit}>
-                    <div className="input-group mb-3">
-                        <input name ="img" type="file" className="form-control" id="inputGroupFile02"/>
-                            <label className="input-group-text" htmlfor="inputGroupFile02">Upload</label>
-                            </div>
+                    <Form onSubmit={handleSubmit}>
 
-                    <div className="mb-3">
-                        <label name ="nome" htmlfor="exampleInputEmail1" className="form-label">Nome</label>
-                        <input  type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                        <div className="input-group mb-3">
+                            <Field type="text" name="img" className="form-control" />
+                            <label className="input-group-text" htmlFor="inputGroupFile02">Upload</label>
                         </div>
 
                         <div className="mb-3">
-                        <label  htmlfor="exampleInputEmail1" className="form-label">CPF</label>
-                        <input name ="cpf" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                            <label name="nome" htmlFor="exampleInputEmail1" className="form-label">Nome</label>
+                            <Field type="text" name="nome" className="form-control" />
                         </div>
 
-                <button type="submit" disabled={isSubmitting} class="btn btn-primary">Salvar</button>
-            </form>
-       
-       )}   
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputEmail1" className="form-label">CPF</label>
+                            <Field type="text" name="cpf" className="form-control" />
+                        </div>
+
+                        <button type="submit" className="btn btn-primary" disabled={isSubmitting} >Salvar</button>
+                    </Form>
 
 
-        </Formik>
+                )}
+
+
+
+            </Formik>
 
     </div>
     );

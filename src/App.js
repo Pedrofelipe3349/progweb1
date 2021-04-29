@@ -69,15 +69,16 @@ function App() {
       <Row>
           <Col xs={3} >
           <Nav className="flex-column">
-              <Link to="/" className="bg-light-grey">Home</Link>
-              <Link to="/pessoa/lista" className="bg-light-grey">Pessoa</Link>
+              <Link to="/" className="bg-light-gray nav-link">Home</Link>
+              <Link to="/pessoa/lista" className="bg-light-gray nav-link">Pessoa</Link>
           </Nav>
           </Col>
           <Col xs={9}>
             <Switch>
               <Route exact path ="/"><Home /></Route>
               <Route  path ="/pessoa/lista"><Pessoalista/></Route>
-              <Route  path ="/pessoa/formulario"><PessoaFormulario/></Route>
+              <Route exact path ="/pessoa/formulario :id"><PessoaFormulario/></Route>
+              <Route exact path ="/pessoa/formulario"><PessoaFormulario/></Route>
               <Route  path ="*"><Notfound/></Route>
             </Switch>
           </Col>

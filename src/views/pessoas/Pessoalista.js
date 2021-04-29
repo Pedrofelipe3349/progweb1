@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
+
 import PessoaService from '../../service/PessoaService'
-import Button from 'react-bootstrap/Button'
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+import '../../Styles.css';
+
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPencilAlt,faTrashAlt,faSearch} from '@fortawesome/free-solid-svg-icons'
-import '../../Styles.css';
-import Modal from 'react-bootstrap/Modal'
 
 
 
   function Pessoalista(){
+
+    useEffect(() =>{
+      listar();
+    },[]);
+    
 
     const [show, setShow] = useState(false);
     const [listaPessoas, setListaPessoas] = useState([]);
@@ -27,13 +34,25 @@ import Modal from 'react-bootstrap/Modal'
     const handleClose = () => setShow(false); 
     const handleShow = (pessoa) => {setPessoaSelecionada(pessoa); setShow(true) };
     const handleSearch = (event) => setSearch(event.target.value);
-    const handleExcluir = () => { console.log ("DELETAR =" , pessoaSelecionada); setShow(false)
-      
-     
-    };
-      const filterExcluir =(pessoa) => {
-        return pessoa.id !=pessoaSelecionada.id;
-      }
+    const handleExcluir = () => { 
+
+      PessoaService.excluir(pessoaSelecionada.id)
+      .then( response => {
+
+          const listaAtualizada = listaPessoas.filter(filterExcluir);
+          setListaPessoas(listaAtualizada);
+
+          console.log( "RESPONSE = ", response);
+      })
+      .catch ( error => console.log("ERROR = ", error) )
+
+      setShow(false);
+  };
+
+  const filterExcluir = (pessoa) => {
+      return pessoa.id != pessoaSelecionada.id;
+  }
+
 
 
     const filterSearch = (pessoa) => {
@@ -54,10 +73,6 @@ import Modal from 'react-bootstrap/Modal'
           .catch(error => { console.log ("ERROR = ", error) } ) 
 
       }
-
-      useEffect(() =>{
-        listar();
-      },[]);
       
    
     return(
@@ -66,7 +81,7 @@ import Modal from 'react-bootstrap/Modal'
         <div className="container">
           <div className="row">
             <div className="col-sm text-align-left">
-              <Link to="/pessoa/formulario" className="btn btn-primary">Novo</Link>
+              <Link to={"/pessoa/formulario"} className="btn btn-primary">Novo</Link>
             </div>
             <div className="col-sm text-align-right">
               <div className="input-group flex-nowrap">
@@ -98,7 +113,7 @@ import Modal from 'react-bootstrap/Modal'
               <td>{pessoa.nome}</td>
               <td>{pessoa.cpf}</td>
               <td>
-                <Link to="/pessoa/formulario/1" className="btn btn-outline-dark mrl-10"><FontAwesomeIcon icon={faPencilAlt} /></Link>
+                <Link to={`/pessoa/formulario${pessoa.id}`} className="btn btn-outline-dark mrl-10"><FontAwesomeIcon icon={faPencilAlt} /></Link>
                 <Button variant="outline-dark" onClick={()=> handleShow(pessoa)}><FontAwesomeIcon icon={faTrashAlt} /></Button>
               </td>
             </tr>
