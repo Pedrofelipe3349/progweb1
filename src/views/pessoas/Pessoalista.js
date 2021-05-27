@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import PessoaService from '../../service/PessoaService'
+import { connect } from "react-redux";
+
+import {listarPessoa} from "../../redux/actions/PessoaAction";
+import {pessoaListaFilter} from "../../redux/filters/PessoaFilter"
+
+import PessoaService from '../../service/PessoaService';
 
 import {
   BrowserRouter as Router,
@@ -63,16 +68,14 @@ import {faPencilAlt,faTrashAlt,faSearch} from '@fortawesome/free-solid-svg-icons
     }
   
     
+      //aaaaaaaaaa
+      
+      const listar = () => {
 
-    const listar = () => {
+        props.listarPessoa();
 
-       PessoaService.listar()
-          .then (response => {
-            setListaPessoas(response.data); 
-       })
-          .catch(error => { console.log ("ERROR = ", error) } ) 
+    }
 
-      }
       
    
     return(
@@ -104,18 +107,21 @@ import {faPencilAlt,faTrashAlt,faSearch} from '@fortawesome/free-solid-svg-icons
           </thead>
           <tbody>
 
-          {listaPessoas
+          {props.pessoaLista
           .filter(filterSearch)
           .map( (pessoa, index) => {
 
-            return(<tr key= {index}>
+          return(
+            <tr key= {index}>
               <th scope="row">{pessoa.id}</th>
               <td>{pessoa.nome}</td>
               <td>{pessoa.cpf}</td>
               <td>
-                <Link to={`/pessoa/formulario${pessoa.id}`} className="btn btn-outline-dark mrl-10"><FontAwesomeIcon icon={faPencilAlt} /></Link>
-                <Button variant="outline-dark" onClick={()=> handleShow(pessoa)}><FontAwesomeIcon icon={faTrashAlt} /></Button>
+                <Link to={`/pessoa/formulario/${pessoa.id}`} className="btn btn-outline-dark mrl-10"><FontAwesomeIcon icon={faPencilAlt} /></Link>
+                <Button  variant="outline-dark" onClick={ () => handleShow(pessoa)  } ><FontAwesomeIcon icon={faTrashAlt} /></Button>
+
               </td>
+
             </tr>
             );
           })}
@@ -145,4 +151,4 @@ import {faPencilAlt,faTrashAlt,faSearch} from '@fortawesome/free-solid-svg-icons
     </div>
     );
  }
-export default Pessoalista;
+ export default connect(pessoaListaFilter,{listarPessoa})(PessoaLista);

@@ -10,6 +10,9 @@ import { NavLink } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faShoppingCart,faUserCircle} from '@fortawesome/free-solid-svg-icons'
 
+import {Provider} from "react-redux";
+import store from "./redux/store"
+
 import logo from './logo.svg';
 import './App.css';
 import './Styles.css';
@@ -23,6 +26,8 @@ import {
 
 function App() {
   return(
+
+    
     <div className="App">
       
       <Router>

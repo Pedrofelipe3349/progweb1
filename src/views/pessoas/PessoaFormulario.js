@@ -1,36 +1,40 @@
 import React, { useState, useEffect } from 'react';
-
-import { Formik , Form, Field, ErrorMessage } from 'formik'
-import PessoaService from '../../service/PessoaService'
-
-import { 
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {
     useHistory,
     useParams
   } from "react-router-dom";
 
 
+import PessoaService from '../../service/PessoaService';
 
 function PessoaFormulario(){
-
+    
+    /* HOOKS */
     let history = useHistory();
-    let {id} = useParams(); 
-    useEffect(() =>{
+    let {id} = useParams();
+    useEffect(() => {
         buscarPessoa();
-      },[]);
-    const [pessoa, setPessoa] = useState({});
+    }, []);
 
+    /* STATES */
+    const [pessoaState, setPessoaState] = useState({});
 
+    /* MÉTODOS SERVICE */
     const buscarPessoa = () => {
         if(id != undefined){
             PessoaService.buscarPeloId(id)
             .then(response => {
-                setPessoa(response.data);
+                setPessoaState(response.data);
             })
             .catch( error => console.log( "ERROR => ". error))
-        }    
-    }  
-    const handleSubmit = (values, {setSubmitting}) => {
+        }
+        
+    }
 
+    /* MÉTODOS DA VIEW */
+    const handleSubmit = (values, {setSubmitting} ) => {
+        
         PessoaService.salvar(values)
         .then( response => {
             setSubmitting(false);
@@ -40,17 +44,28 @@ function PessoaFormulario(){
 
     }
 
+    const mapStateToObject = () => {
+        return {
+            id: pessoaState.id || undefined,
+            nome: pessoaState.nome || '',
+            cpf: pessoaState.cpf || '',
+            img: pessoaState.img || ''
+        }
+    }
+
+    
     return(
-    <div>
-        <h1>Cadastro de pessoa</h1> 
+        <div>
+            <h1>Cadastro de Pessoa</h1>
 
+            <Formik 
+                initialValues={ mapStateToObject() }
+                enableReinitialize
+                onSubmit={ (values, {setSubmitting} ) => handleSubmit(values, {setSubmitting} ) }
 
-        <Formik
-               initialValues={id==undefined? {img:'', nome: '', cpf:''}: pessoa}
-                onSubmit= {(values, {setSubmitting} ) => handleSubmit(values, {setSubmitting} ) }
-        >
+            >
 
-        {  ({ values, handleSubmit, isSubmitting }) => (
+                {  ({ values, handleSubmit, isSubmitting }) => (
 
                     <Form onSubmit={handleSubmit}>
 
@@ -79,7 +94,8 @@ function PessoaFormulario(){
 
             </Formik>
 
-    </div>
+
+        </div>
     );
 }
 
